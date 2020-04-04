@@ -1,0 +1,36 @@
+import { Injectable } from '@nestjs/common';
+import * as mqtt from 'mqtt';
+import { ConfigService } from '../config/config.service';
+
+@Injectable()
+export class EventService {
+  private client: any;
+
+  constructor(private configService: ConfigService) {}
+
+  public async publish(topic: string, content: Buffer) {
+    await this.setUp();
+    this.client.publish(topic, content);
+  }
+
+  public async setUp() {
+    if (this.client) {
+      return;
+    }
+    this.client = mqtt.connect(this.configService.get('MQTT_HOST'));
+    this.client.on('connect', () => {
+      // tslint:disable-next-line: no-console
+      console.log('Successfully connnected to MQTT broker!');
+    });
+  }
+
+  public async subscribe(topic: string, eventHandler: any) {
+    await this.setUp();
+    this.client.subscribe(topic);
+    this.client.on('message', (t, m) => {
+      if (topic === t) {
+        eventHandler(m);
+      }
+    });
+  }
+}
