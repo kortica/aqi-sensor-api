@@ -8,10 +8,11 @@ import { ConfigService } from './config/config.service';
 import { EnvironmentService } from './environment/environment.service';
 import { AqiPublisher } from './aqi/aqiPublisher';
 import { NodesPublisher } from './environment/nodesPublisher';
+import { MotionConsumer } from './motion/motionConsumer';
 
 @Module({
   imports: [],
   controllers: [AppController, AqiController],
-  providers: [AppService, AqiPublisher, AqiService, EventService, ConfigService, EnvironmentService, NodesPublisher],
+  providers: [AppService, AqiPublisher, AqiService, EventService, ConfigService, EnvironmentService, MotionConsumer, NodesPublisher],
 })
 export class AppModule {}
