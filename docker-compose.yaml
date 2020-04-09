@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  capture-api:
+  aqi-sensor-api:
     image: aqi-sensor-api:latest
     container_name: aqi-sensor-api
     restart: always
