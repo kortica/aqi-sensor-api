@@ -3,7 +3,6 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AqiPublisher } from './aqi/aqiPublisher';
 import { AppModule } from './app.module';
-import { NodesPublisher } from './environment/nodesPublisher';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -23,9 +22,6 @@ async function bootstrap() {
   const aqiPublisher = app.get(AqiPublisher);
   aqiPublisher.start();
 
-  const nodesPublisher = app.get(NodesPublisher);
-  nodesPublisher.start();
-
-  await app.listen(3500);
+  await app.listen(3000);
 }
 bootstrap();
