@@ -18,5 +18,5 @@ RUN npm rebuild @serialport/bindings
 # Bundle app source
 COPY . .
 
-EXPOSE 3500
+EXPOSE 3000
 CMD [ "npm", "start" ]
