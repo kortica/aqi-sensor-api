@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { AqiService } from './aqi.service';
 import { ISensorReading } from './aqiSensor';
 import { EventService } from '../event/event.service';
-import { EnvironmentService } from '../environment/environment.service';
+
+import * as os from 'os';
 
 @Injectable()
 export class AqiPublisher {
@@ -10,8 +11,7 @@ export class AqiPublisher {
 
   constructor(
     private readonly aqiService: AqiService,
-    private readonly eventService: EventService,
-    private readonly environmentService: EnvironmentService,
+    private readonly eventService: EventService
   ) {
     aqiService.on('reading', data => {
       this.publish(data);
@@ -29,11 +29,23 @@ export class AqiPublisher {
     if (this._started) {
       // Add source and type of event
       const event = {
-        source: this.environmentService.getLocalIPAddress(),
+        source: this.getLocalIPAddress(),
         type: 'aqi',
         data: sensorData,
       };
       this.eventService.publish('aqi', Buffer.from(JSON.stringify(event)));
     }
+  }
+
+  public getLocalIPAddress(): string {
+    const networkInterfaces: any = os.networkInterfaces();
+    const validInterfaces = Object.keys(networkInterfaces).filter(
+      index => index !== 'lo',
+    );
+    const defaultInterface = networkInterfaces[validInterfaces[0]].filter(
+      obj => obj.family === 'IPv4',
+    )[0];
+
+    return defaultInterface.address;
   }
 }
