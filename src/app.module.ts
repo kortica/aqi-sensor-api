@@ -6,11 +6,10 @@ import { AqiService } from './aqi/aqi.service';
 import { EventService } from './event/event.service';
 import { ConfigService } from './config/config.service';
 import { AqiPublisher } from './aqi/aqiPublisher';
-import { MotionConsumer } from './motion/motionConsumer';
 
 @Module({
   imports: [],
   controllers: [AppController, AqiController],
-  providers: [AppService, AqiPublisher, AqiService, EventService, ConfigService, MotionConsumer],
+  providers: [AppService, AqiPublisher, AqiService, EventService, ConfigService],
 })
 export class AppModule {}
