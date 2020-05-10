@@ -1,9 +1,13 @@
 # AQI Sensor API
 
-This project provides a simple REST API over the Nova SDS011 High Precision air quality sensor.
-The goal is to provide at a minimum a GET route that would allow the querying of a sensor
-value at a particular point in time. For the moment, the route returns the sensor value at the
-time the endpoint is requested.
+This project provides a simple MQTT publisher for the Nova SDS011 High Precision air quality sensor.
+It will send a MQTT message for each new reading of the sensor (at approximately every second, which
+is the rate of the sensor). Each sensor reading contains a PM 2.5 and a PM 10 value.
+
+In addition, a simple API over the sensor is supplied. The goal is to provide at a minimum a 
+GET route that would allow the querying of a sensor value at a particular point in time. 
+For the moment, the only route available returns the sensor value at the time the endpoint is 
+requested.
 
 It has been tested to work on Ubuntu Linux and Raspberry Pi.
 
