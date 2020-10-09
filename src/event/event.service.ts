@@ -17,12 +17,15 @@ export class EventService {
     if (this.client) {
       return;
     }
-    this.client = mqtt.connect(this.configService.get('MQTT_HOST'));
+    const mqttHost = this.configService.get('MQTT_HOST');
+    console.log(`Attempting to connect to MQTT broker @ ${mqttHost}`);
+
+    this.client = mqtt.connect(mqttHost);
     this.client.on('connect', () => {
       // tslint:disable-next-line: no-console
       console.log('Successfully connected to MQTT broker!');
     });
-    this.client.on('error', (error) => {
+    this.client.on('error', error => {
       console.error(error);
     });
   }
