@@ -1,6 +1,6 @@
 # AQI Sensor API
 
-This project provides a simple MQTT publisher for the Nova SDS011 High Precision air quality sensor.
+This project provides a simple MQTT publisher for the Nova SDS011 high precision air quality sensor.
 It will send a MQTT message for each new reading of the sensor (at approximately every second, which
 is the rate of the sensor). Each sensor reading contains a PM 2.5 and a PM 10 value.
 
