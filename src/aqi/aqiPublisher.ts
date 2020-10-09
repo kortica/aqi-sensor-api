@@ -11,7 +11,7 @@ export class AqiPublisher {
 
   constructor(
     private readonly aqiService: AqiService,
-    private readonly eventService: EventService
+    private readonly eventService: EventService,
   ) {
     aqiService.on('reading', data => {
       this.publish(data);
@@ -33,6 +33,7 @@ export class AqiPublisher {
         type: 'aqi',
         data: sensorData,
       };
+      console.log(`Publishing event ${JSON.stringify(event)}`);
       this.eventService.publish('aqi', Buffer.from(JSON.stringify(event)));
     }
   }
