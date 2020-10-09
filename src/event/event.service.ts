@@ -22,6 +22,9 @@ export class EventService {
       // tslint:disable-next-line: no-console
       console.log('Successfully connected to MQTT broker!');
     });
+    this.client.on('error', (error) => {
+      console.error(error);
+    });
   }
 
   public async subscribe(topic: string, eventHandler: any) {
